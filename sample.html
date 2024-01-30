@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: glow-animation 2s infinite alternate;
+    }
+
+    @keyframes glow-animation {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+      }
+      100% {
+        box-shadow: 0 0 20px rgb(0, 26, 255), 0 0 30px rgba(255, 165, 0, 0.8), 0 0 40px rgba(255, 165, 0, 0.6);
+      }
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-container input {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .input-container label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #888;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .input-container input:focus + label,
+    .input-container input:valid + label {
+      top: -15px;
+      font-size: 12px;
+      color: #4CAF50;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+      text-align: left;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Advanced Registration Form</h2>
+    <form id="registrationForm">
+      <div class="input-container">
+        <input type="text" id="username" name="username" required>
+        <label for="username">Username</label>
+        <span id="usernameError" class="error"></span>
+      </div>
+      <div class="input-container">
+        <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+        <span id="emailError" class="error"></span>
+      </div>
+      <div class="input-container">
+        <input type="password" id="password" name="password" required>
+        <label for="password">Password</label>
+        <span id="passwordError" class="error"></span>
+      </div>
+      <div>
+        <button type="submit">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = usernameInput.value;
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      // Username validation
+      const usernamePattern = /^[A-Z][a-zA-Z0-9]*[0-9][a-zA-Z0-9]*$/;
+      if (!usernamePattern.test(username)) {
+        document.getElementById('usernameError').innerText = 'Username must start with an uppercase letter and contain at least one digit.';
+      } else {
+        document.getElementById('usernameError').innerText = '';
+      }
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById('emailError').innerText = 'Invalid email format.';
+      } else {
+        document.getElementById('emailError').innerText = '';
+      }
+
+      // Password validation
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z.,;:])[a-zA-Z0-9.,;:]{8,20}$/;
+      if (!passwordPattern.test(password)) {
+        document.getElementById('passwordError').innerText = 'Password must be 8 to 20 characters long and contain at least one uppercase letter, one lowercase letter, and one special character excluding [. (dot), ,(comma), ;(semicolon), : (colon)].';
+      } else {
+        document.getElementById('passwordError').innerText = '';
+      }
+    });
+  </script>
+</body>
+</html>
